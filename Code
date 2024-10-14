@@ -1,0 +1,23 @@
+@echo off
+setlocal enabledelayedexpansion
+
+:: Đường dẫn tới file đầu vào và đầu ra
+set "input_file=input.txt"
+set "output_file=output.txt"
+
+:: Xóa nội dung file đầu ra nếu tồn tại
+> "%output_file%" echo.
+
+:: Đọc từng dòng từ file đầu vào
+for /f "tokens=1-4 delims=:" %%a in (%input_file%) do (
+    set "ip=%%a"
+    set "port=%%b"
+    set "user=%%c"
+    set "pass=%%d"
+    
+    :: Tạo chuỗi theo định dạng mong muốn và ghi vào file đầu ra
+    echo http://!user!:!pass!@!ip!:!port! >> "%output_file%"
+)
+
+echo Đã hoàn tất chuyển đổi.
+pause
